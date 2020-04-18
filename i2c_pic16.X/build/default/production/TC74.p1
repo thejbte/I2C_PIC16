@@ -1,0 +1,219 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[v F60 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F65 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+"28 TC74.c
+[; ;TC74.c: 28: void TC74_Initialize(TC74Data_t *Obj, ADDR_SLAVE_7b_t AddrSlave ,Write_Fcn write_fcn, Read_Fcn read_fcn){
+[c E34 72 73 74 75 76 77 78 79 .. ]
+[n E34 . ADDR_A0 ADDR_A1 ADDR_A2 ADDR_A3 ADDR_A4 ADDR_A5 ADDR_A6 ADDR_A7  ]
+"53 ./TC74.h
+[; ;./TC74.h: 53: typedef struct {
+[s S1 `*F60 1 `*F65 1 `E34 1 ]
+[n S1 . I2CWrite I2CRead Dev_Addr ]
+[v F250 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F254 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F261 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F266 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F297 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+[v F314 `(v ~T0 @X0 0 tf3`uc`*v`uc ]
+"63 TC74.c
+[; ;TC74.c: 63:     RCWR = TC74_Read(Obj,TC74_RWCR,1);
+[c E44 0 1 .. ]
+[n E44 . TC74_RTR TC74_RWCR  ]
+"28 TC74.c
+[; ;TC74.c: 28: void TC74_Initialize(TC74Data_t *Obj, ADDR_SLAVE_7b_t AddrSlave ,Write_Fcn write_fcn, Read_Fcn read_fcn){
+[v _TC74_Initialize `(v ~T0 @X0 1 ef4`*S1`E34`*F250`*F254 ]
+{
+[e :U _TC74_Initialize ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[v _AddrSlave `E34 ~T0 @X0 1 r2 ]
+[v _write_fcn `*F261 ~T0 @X0 1 r3 ]
+[v _read_fcn `*F266 ~T0 @X0 1 r4 ]
+[f ]
+"30
+[; ;TC74.c: 30:     Obj->I2CWrite = write_fcn;
+[e = . *U _Obj 0 _write_fcn ]
+"31
+[; ;TC74.c: 31:     Obj->I2CRead = read_fcn;
+[e = . *U _Obj 1 _read_fcn ]
+"32
+[; ;TC74.c: 32:     Obj->Dev_Addr = AddrSlave;
+[e = . *U _Obj 2 _AddrSlave ]
+"34
+[; ;TC74.c: 34: }
+[e :UE 7 ]
+}
+"37
+[; ;TC74.c: 37: static uint8_t TC74_Write(TC74Data_t *Obj, uint8_t TC74_Register, uint16_t data, uint8_t amount){
+[v _TC74_Write `(uc ~T0 @X0 1 sf4`*S1`uc`us`uc ]
+{
+[e :U _TC74_Write ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[v _TC74_Register `uc ~T0 @X0 1 r2 ]
+[v _data `us ~T0 @X0 1 r3 ]
+[v _amount `uc ~T0 @X0 1 r4 ]
+[f ]
+"38
+[; ;TC74.c: 38:  uint8_t Retvalue = 1;
+[v _Retvalue `uc ~T0 @X0 1 a ]
+[e = _Retvalue -> -> 1 `i `uc ]
+"39
+[; ;TC74.c: 39:     uint8_t buffer[2];
+[v _buffer `uc ~T0 @X0 -> 2 `i a ]
+"40
+[; ;TC74.c: 40:  buffer[0] = TC74_Register;
+[e = *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux _TC74_Register ]
+"41
+[; ;TC74.c: 41:  buffer[1] = data;
+[e = *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux -> _data `uc ]
+"42
+[; ;TC74.c: 42:  if(Obj->I2CWrite != ((void*)0)){
+[e $ ! != . *U _Obj 0 -> -> -> 0 `i `*v `*F297 9  ]
+{
+"43
+[; ;TC74.c: 43:         Obj->I2CWrite( Obj->Dev_Addr, buffer, (amount+1));
+[e ( *U . *U _Obj 0 (3 , , -> . *U _Obj 2 `uc -> &U _buffer `*v -> + -> _amount `i -> 1 `i `uc ]
+"44
+[; ;TC74.c: 44:     }
+}
+[e $U 10  ]
+"45
+[; ;TC74.c: 45:     else Retvalue = 0;
+[e :U 9 ]
+[e = _Retvalue -> -> 0 `i `uc ]
+[e :U 10 ]
+"46
+[; ;TC74.c: 46:     return Retvalue;
+[e ) _Retvalue ]
+[e $UE 8  ]
+"47
+[; ;TC74.c: 47: }
+[e :UE 8 ]
+}
+"50
+[; ;TC74.c: 50: static uint8_t TC74_Read(TC74Data_t *Obj, uint8_t TC74_Register, uint8_t amount){
+[v _TC74_Read `(uc ~T0 @X0 1 sf3`*S1`uc`uc ]
+{
+[e :U _TC74_Read ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[v _TC74_Register `uc ~T0 @X0 1 r2 ]
+[v _amount `uc ~T0 @X0 1 r3 ]
+[f ]
+"51
+[; ;TC74.c: 51:  uint8_t buffer[2];
+[v _buffer `uc ~T0 @X0 -> 2 `i a ]
+"52
+[; ;TC74.c: 52:  buffer[0] = TC74_Register;
+[e = *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux _TC74_Register ]
+"53
+[; ;TC74.c: 53:  if(Obj->I2CRead != ((void*)0)){
+[e $ ! != . *U _Obj 1 -> -> -> 0 `i `*v `*F314 12  ]
+{
+"54
+[; ;TC74.c: 54:         Obj->I2CRead( Obj->Dev_Addr, buffer, amount);
+[e ( *U . *U _Obj 1 (3 , , -> . *U _Obj 2 `uc -> &U _buffer `*v _amount ]
+"55
+[; ;TC74.c: 55:     }
+}
+[e :U 12 ]
+"56
+[; ;TC74.c: 56:  return buffer[0];
+[e ) *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux ]
+[e $UE 11  ]
+"57
+[; ;TC74.c: 57: }
+[e :UE 11 ]
+}
+"60
+[; ;TC74.c: 60: void TC74_Standby(TC74Data_t *Obj , uint8_t operation){
+[v _TC74_Standby `(v ~T0 @X0 1 ef2`*S1`uc ]
+{
+[e :U _TC74_Standby ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[v _operation `uc ~T0 @X0 1 r2 ]
+[f ]
+"61
+[; ;TC74.c: 61:     uint8_t RCWR;
+[v _RCWR `uc ~T0 @X0 1 a ]
+"62
+[; ;TC74.c: 62:     operation = operation ?0x80:0x00;
+[e = _operation -> ? != -> _operation `i -> 0 `i : -> 128 `i -> 0 `i `uc ]
+"63
+[; ;TC74.c: 63:     RCWR = TC74_Read(Obj,TC74_RWCR,1);
+[e = _RCWR ( _TC74_Read (3 , , _Obj -> . `E44 1 `uc -> -> 1 `i `uc ]
+"64
+[; ;TC74.c: 64:     TC74_Write(Obj,TC74_RWCR,operation ,1);
+[e ( _TC74_Write (4 , , , _Obj -> . `E44 1 `uc -> _operation `us -> -> 1 `i `uc ]
+"65
+[; ;TC74.c: 65: }
+[e :UE 13 ]
+}
+"68
+[; ;TC74.c: 68: uint8_t TC74_Ready(TC74Data_t *Obj){
+[v _TC74_Ready `(uc ~T0 @X0 1 ef1`*S1 ]
+{
+[e :U _TC74_Ready ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[f ]
+"69
+[; ;TC74.c: 69:     uint8_t Ready=0;
+[v _Ready `uc ~T0 @X0 1 a ]
+[e = _Ready -> -> 0 `i `uc ]
+"70
+[; ;TC74.c: 70:     Ready = TC74_Read(Obj,TC74_RWCR,1);
+[e = _Ready ( _TC74_Read (3 , , _Obj -> . `E44 1 `uc -> -> 1 `i `uc ]
+"72
+[; ;TC74.c: 72:     return ( (Ready & 0x40)?1:0 );
+[e ) -> ? != & -> _Ready `i -> 64 `i -> 0 `i : -> 1 `i -> 0 `i `uc ]
+[e $UE 14  ]
+"73
+[; ;TC74.c: 73: }
+[e :UE 14 ]
+}
+"76
+[; ;TC74.c: 76: int8_t TC74_Temperature(TC74Data_t *Obj){
+[v _TC74_Temperature `(c ~T0 @X0 1 ef1`*S1 ]
+{
+[e :U _TC74_Temperature ]
+[v _Obj `*S1 ~T0 @X0 1 r1 ]
+[f ]
+"77
+[; ;TC74.c: 77:     uint8_t Digital_Temperature = 0;
+[v _Digital_Temperature `uc ~T0 @X0 1 a ]
+[e = _Digital_Temperature -> -> 0 `i `uc ]
+"78
+[; ;TC74.c: 78:     int8_t Temperature = 0;
+[v _Temperature `c ~T0 @X0 1 a ]
+[e = _Temperature -> -> 0 `i `c ]
+"79
+[; ;TC74.c: 79:     if(TC74_Ready(Obj)) {
+[e $ ! != -> ( _TC74_Ready (1 _Obj `i -> 0 `i 16  ]
+{
+"80
+[; ;TC74.c: 80:         Digital_Temperature = TC74_Read(Obj,TC74_RTR,1);
+[e = _Digital_Temperature ( _TC74_Read (3 , , _Obj -> . `E44 0 `uc -> -> 1 `i `uc ]
+"81
+[; ;TC74.c: 81:     }
+}
+[e :U 16 ]
+"83
+[; ;TC74.c: 83:     if(Digital_Temperature > 127){
+[e $ ! > -> _Digital_Temperature `i -> 127 `i 17  ]
+{
+"84
+[; ;TC74.c: 84:         Temperature = ((~Digital_Temperature) |0x01)*(-1) ;
+[e = _Temperature -> * | ~ -> _Digital_Temperature `i -> 1 `i -U -> 1 `i `c ]
+"85
+[; ;TC74.c: 85:     }else Temperature = (int8_t)Digital_Temperature;
+}
+[e $U 18  ]
+[e :U 17 ]
+[e = _Temperature -> _Digital_Temperature `c ]
+[e :U 18 ]
+"87
+[; ;TC74.c: 87:     return Temperature;
+[e ) _Temperature ]
+[e $UE 15  ]
+"88
+[; ;TC74.c: 88: }
+[e :UE 15 ]
+}
